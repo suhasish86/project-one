@@ -33,6 +33,11 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        //Multiple key binding
+        Route::bind('page', function($value) {
+            return \App\Admin\Page::where('id', $value)->orWhere('pageslug', $value)->first();
+        });
     }
 
     /**

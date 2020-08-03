@@ -15,7 +15,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "spatie/laravel-permission": "^3.13"
+        "pion/laravel-chunk-upload": "^1.4",
+        "spatie/laravel-permission": "^3.13",
+        "spatie/laravel-sluggable": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

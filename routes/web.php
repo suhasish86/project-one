@@ -33,6 +33,18 @@ Route::name('admin.')->prefix('admin/')->namespace('Admin')->group(function () {
     Route::middleware(['adminlogin'])->group(function(){
         Route::get('/', 'AdminController@index')->name('dashboard');
         Route::resource('social', 'SocialController');
+
+        //Upload
+        Route::post('/upload', 'UploadController@upload')->name('upload');
+
+        //Page manager
+        Route::get('/pagelist', 'PageController@index')->name('pagelist');
+        Route::get('/createpage', 'PageController@create')->name('createpage');
+        Route::get('/editpage/{page}', 'PageController@edit')->name('editpage');
+
+        Route::post('/ajax_pagelist', 'PageController@pageList')->name('ajax_pagelist');
+        Route::post('/savepage', 'PageController@store')->name('savepage');
+
     });
 
 });

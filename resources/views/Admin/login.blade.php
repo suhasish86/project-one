@@ -48,10 +48,10 @@
             <div class="nk-form">
                 <form name="loginfrm" id="loginfrm">
                     @csrf
-                    <div class="input-group">
+                    <div class="input-group mg-t-15">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
                         <div class="nk-int-st">
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Username" value="{{ old('email') }}">
+                            <input type="text" id="email" name="email" class="form-control" placeholder="Username" value="{{ old('email') }}">
                         </div>
                     </div>
                     <div class="input-group mg-t-15">
@@ -138,12 +138,9 @@
     <script src="{{ asset('adminassets/js/notification/bootstrap-growl.min.js') }}"></script>
     <script src="{{ asset('adminassets/js/admin.utilities.js') }}"></script>
     <script src="{{ asset('adminassets/js/form.validate.js') }}"></script>
-
-
-    <script src="{{ asset('adminassets/js/login/login-action.js') }}"></script>
-
     <script type="text/javascript">
         var host = "{{ URL::to('/') }}" + "/";
+        var error_class = 'form_errorFiled';
         $(function(){
             $.ajaxSetup({
                 headers: {
@@ -152,7 +149,7 @@
             });
         });
     </script>
-
+    <script src="{{ asset('adminassets/js/login/login-action.js') }}"></script>
 </body>
 
 </html>
