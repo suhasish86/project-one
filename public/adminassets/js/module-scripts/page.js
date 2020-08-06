@@ -37,6 +37,46 @@
         });
 
         $(window).resize();
+
+        //Publish
+        $('table#table-pagelist').on('click', 'a[id^="publish-"]', function() {
+            var pageslug = $(this).attr('id').replace('publish-', '');
+            $.ajax({
+                url: host + 'admin/publishpage/' + pageslug,
+                type: "POST",
+                dataType: 'html',
+                data: {},
+                timeout: 20000,
+                cache: false,
+                success: function(responce) {
+                    // console.log(responce);
+                    responce = JSON.parse(responce);
+                    popmessage(responce.status, responce.message);
+                    $('table#table-pagelist').DataTable().ajax.reload();
+                    return false;
+                }
+            });
+        });
+
+        //Remove
+        $('table#table-pagelist').on('click', 'a[id^="delete-"]', function() {
+            var pageslug = $(this).attr('id').replace('delete-', '');
+            $.ajax({
+                url: host + 'admin/deletepage/' + pageslug,
+                type: "POST",
+                dataType: 'html',
+                data: {},
+                timeout: 20000,
+                cache: false,
+                success: function(responce) {
+                    // console.log(responce);
+                    responce = JSON.parse(responce);
+                    popmessage(responce.status, responce.message);
+                    $('table#table-pagelist').DataTable().ajax.reload();
+                    return false;
+                }
+            });
+        });
     }
 
     if ($('form#createpagefrm').length) {
@@ -51,13 +91,6 @@
             addRemoveLinks: true,
             maxFiles: 1,
             init: function() {
-
-                // if ($("div#bannerUploader").attr('data-file') != '')
-                //     this.displayExistingFile({
-                //         name: $("div#bannerUploader").attr('data-file'),
-                //         size: $("div#bannerUploader").attr('data-size')
-                //     }, $("div#bannerUploader").attr('data-link'));
-
                 //Load previous image
                 var banner = {
                     name: $("div#bannerUploader").attr('data-file'),
@@ -65,9 +98,10 @@
                     path: $("div#bannerUploader").attr('data-link')
                 }
 
-                if (banner.name != null) {
-                    this.emit("addedfile", banner);
-                    this.emit("thumbnail", banner, banner.path);
+                if (banner.name != null && banner.size > 0) {
+                    this.options.addedfile.call(this, banner);
+                    this.options.thumbnail.call(this, banner, banner.path);
+                    this.files[0] = banner;
                 }
 
                 this.on("addedfile", function(file) {
@@ -75,8 +109,10 @@
                         this.removeFile(this.files[0]);
                     }
                 });
+
                 this.on("removedfile", function(file) {
-                    console.log(file);
+                    // console.log(file);
+                    __removeUpload(file.name);
                 });
                 this.on("sending", function(file, xhr, formData) {
                     formData.append("filepath", 'pagebanner');
@@ -91,6 +127,26 @@
                 file.previewElement.classList.add("dz-error");
             }
         });
+
+        var __removeUpload = function(file) {
+            var slug = $('input#pageslug').val();
+            var target = (slug != '') ? host + 'admin/deletebanner/' + slug : host + 'admin/removeupload';
+            $.ajax({
+                url: target,
+                type: "POST",
+                dataType: 'html',
+                data: {
+                    'path': 'pagebanner',
+                    'file': file
+                },
+                timeout: 20000,
+                cache: false,
+                success: function(responce) {
+                    // console.log(responce);
+                    return false;
+                }
+            });
+        };
 
         $("#pagedescription").summernote({
             height: 150
@@ -111,11 +167,16 @@
             res = res && $('input#metakeyword').notempty(error_class);
             res = res && $('input#metadescription').notempty(error_class);
 
+            //Target & Redirect Url
+            var slug = $('input#pageslug').val();
+            var target = (slug == '') ? host + 'admin/savepage' : host + 'admin/updatepage/' + slug
+            var redirect = host + 'admin/pagelist';
+
             if (res) {
                 var arg = $("form#createpagefrm").serialize();
                 console.log(arg);
                 $.ajax({
-                    url: host + 'admin/savepage',
+                    url: target,
                     type: "POST",
                     dataType: 'html',
                     data: arg,
@@ -125,7 +186,7 @@
                         // console.log(responce);
                         responce = JSON.parse(responce);
                         popmessage(responce.status, responce.message);
-                        setTimeout('window.location.reload();', 2000);
+                        setTimeout('window.location.href="' + redirect + '";', 2000);
                         return false;
                     }
                 });

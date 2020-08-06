@@ -91,8 +91,11 @@ class PageController extends Controller
     {
         if($page->banner != ''){
             $banner = $this->load_image('pagebanner/'.$page->banner);
-            $page->banner_link = $banner->get_image_link();
-            $page->banner_size = $banner->get_image_size();
+            if($banner){
+                $page->banner_link = $banner->get_image_link();
+                $page->banner_size = $banner->get_image_size();
+            }
+
         }
         return view('admin.createpage',compact('page',$page));
     }
@@ -106,7 +109,42 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //
+        $request->validate([
+            'pagename' => 'required',
+            'browsertitle' => 'required',
+            'metakeyword' => 'required',
+            'metadescription' => 'required',
+            'pagedescription' => 'required',
+        ]);
+        $page->author = $request->user()->id;
+        $page->pagename = $request->pagename;
+        $page->browsertitle = $request->browsertitle;
+        $page->metakeyword = $request->metakeyword;
+        $page->metadescription = $request->metadescription;
+        $page->description = $request->pagedescription;
+
+        //Banner update
+        if($request->banner != ''){
+            if($page->banner != ''){
+                $banner = $this->load_image('pagebanner/'.$page->banner);
+                if($banner ) $banner->remove_image();
+            }
+            $page->banner = $request->banner;
+        }
+
+        $page->save();
+
+        if ((int) $page->id > 0) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Page successfully updated.',
+                ]
+                );
+            } else {
+                return redirect()->route('admin.pagelist');
+            }
+        }
     }
 
     /**
@@ -117,7 +155,58 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        //
+        if($page->banner != ''){
+            $banner = $this->load_image('pagebanner/'.$page->banner);
+            if($banner){
+                $banner->remove_image();
+            }
+        }
+        $page->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Page successfully deleted.',
+        ]);
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Admin\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function removebanner(Page $page)
+    {
+        if($page->banner != ''){
+            $banner = $this->load_image('pagebanner/'.$page->banner);
+            if($banner){
+                $banner->remove_image();
+            }
+        }
+        $page->banner = '';
+        $page->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Page banner successfully deleted.',
+        ]);
+    }
+
+    /**
+     * Publish the specified resource from storage.
+     *
+     * @param  \App\Admin\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function publish(Page $page)
+    {
+        $status = ((int)$page->status > 0) ? 0 : 1;
+        $action = ((int)$page->status > 0) ? 'Un Published' : 'Published';
+        $page->status = $status;
+        $page->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Page successfully '.$action.'.',
+        ]);
     }
 
 
@@ -125,7 +214,6 @@ class PageController extends Controller
      * List the specified resource as json.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Admin\Page  $page
      * @return \Illuminate\Http\Response
      */
     public function pageList(Request $request)
@@ -174,9 +262,9 @@ class PageController extends Controller
                 $nestedData[] = $page->id;
                 $nestedData[] = $page->pagename;
                 $nestedData[] = $page->description;
-                $nestedData[] = '<a href="javascript:void(0);" title="'.$checkText.'" id="publish-'.$page->id.'">'.$checkIcon.'</a>';
-                $nestedData[] = '<a href="'.route('admin.editpage', ['page' => $page->pageslug]).'" title="Edit Page"><i class="fa fa-edit"></i></a>';;
-                $nestedData[] = '<a href="javascript:void(0);" title="Delete Page" id="delete-'.$page->id.'"><i class="fa fa-trash"></i></a>';;
+                $nestedData[] = '<a href="javascript:void(0);" title="'.$checkText.'" id="publish-'.$page->pageslug.'">'.$checkIcon.'</a>';
+                $nestedData[] = '<a href="'.route('admin.editpage', ['page' => $page->pageslug]).'" title="Edit Page"><i class="fa fa-edit"></i></a>';
+                $nestedData[] = '<a href="javascript:void(0);" title="Delete Page" id="delete-'.$page->pageslug.'"><i class="fa fa-trash"></i></a>';
                 $nestedData['DT_RowId'] = $page->id;
                 $data[] = $nestedData;
             }

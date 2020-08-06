@@ -11,8 +11,12 @@ use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 
+use App\Traits\ImageHandler;
+
 class UploadController extends BaseController
 {
+    use ImageHandler;
+
     /**
      * Handles the file upload
      *
@@ -49,6 +53,29 @@ class UploadController extends BaseController
 
         return response()->json([
             "done" => $handler->getPercentageDone(),
+            'status' => true
+        ]);
+    }
+
+
+    /**
+     * Handles the file upload remove
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     */
+    public function remove(Request $request) {
+        $msg = 'Error';
+        if($request->file != ''){
+                $file = $this->load_image($request->path.'/'.$request->file);
+                if($file && $file->remove_image()){
+                    $msg = 'File removed';
+                }
+            }
+        return response()->json([
+            "done" => $msg,
             'status' => true
         ]);
     }

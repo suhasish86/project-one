@@ -34,6 +34,7 @@ Route::name('admin.')->prefix('admin/')->namespace('Admin')->group(function () {
 
         //Upload
         Route::post('/upload', 'UploadController@upload')->name('upload');
+        Route::post('/removeupload', 'UploadController@remove')->name('removeupload');
 
         //Page manager
         Route::get('/pagelist', 'PageController@index')->name('pagelist');
@@ -42,6 +43,10 @@ Route::name('admin.')->prefix('admin/')->namespace('Admin')->group(function () {
 
         Route::post('/ajax_pagelist', 'PageController@pageList')->name('ajax_pagelist');
         Route::post('/savepage', 'PageController@store')->name('savepage');
+        Route::post('/updatepage/{page}', 'PageController@update')->name('updatepage');
+        Route::post('/publishpage/{page}', 'PageController@publish')->name('publishpage');
+        Route::post('/deletepage/{page}', 'PageController@destroy')->name('deletepage');
+        Route::post('/deletebanner/{page}', 'PageController@removebanner')->name('deletebanner');
 
     });
 

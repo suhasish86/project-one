@@ -11,13 +11,16 @@ trait ImageHandler
     public function load_image($path)
     {
         $this->storage_path .= $path;
-        return $this;
+        if (Storage::exists($this->storage_path)) {
+            return $this;
+        }
+        return false;
     }
 
     public function get_image_link()
     {
         $link_path = Storage::url($this->storage_path);
-        return env('APP_URL') . $link_path;
+        return $link_path;
     }
 
     public function get_image_size()

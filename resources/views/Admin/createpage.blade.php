@@ -85,7 +85,7 @@
                                         <label class="hrzn-fm">Page Banner</label>
                                     </div>
                                     <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                                        <div class="dropzone dropzone-nk needsclick dz-clickable" id="bannerUploader" data-file="{{ isset($page->banner) ? $page->banner : '' }}" data-link="{{ isset($page->banner_link) ? $page->banner_link : '' }}" data-size="{{ isset($page->banner_size) ? $page->banner_size : '' }}">
+                                        <div class="dropzone dropzone-nk needsclick dz-clickable" id="bannerUploader" data-file="{{ isset($page->banner) ? $page->banner : '' }}" data-link="{{ isset($page->banner_link) ? asset($page->banner_link) : '' }}" data-size="{{ isset($page->banner_size) ? $page->banner_size : '' }}">
                                             <div class="dz-message needsclick download-custom">
                                                 <i class="notika-icon notika-cloud"></i>
                                                 <h2>Drop files here or click to upload.</h2>
