@@ -28,6 +28,14 @@
         radioClass: 'iradio_square-green',
     });
 
+    /*----------------------------
+	jQuery Chosen
+	------------------------------ */
+    $(".chosen")[0] && $(".chosen").chosen({
+        width: "100%",
+        allow_single_deselect: !0
+    });
+
     $(".nk-int-st")[0] && ($("body").on("focus", ".nk-int-st .form-control", function() {
         $(this).closest(".nk-int-st").addClass("nk-toggled")
     }), $("body").on("blur", ".form-control", function() {

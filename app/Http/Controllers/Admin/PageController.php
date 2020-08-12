@@ -97,7 +97,7 @@ class PageController extends Controller
             }
 
         }
-        return view('admin.createpage',compact('page',$page));
+        return view('admin.createpage',compact('page'));
     }
 
     /**

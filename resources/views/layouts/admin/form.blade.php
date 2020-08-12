@@ -22,6 +22,7 @@
 <!-- dropzone CSS
 ============================================ -->
 <link rel="stylesheet" href="{{ asset('adminassets/css/dropzone/dropzone.css') }}">
+
 @endsection
 
 @section('specific_scrypt')
@@ -42,6 +43,8 @@
 <!-- dropzone JS
 ============================================ -->
 <script src="{{ asset('adminassets/js/dropzone/dropzone.js') }}"></script>
+
+
 <!-- Validation Script
 ============================================ -->
 <script src="{{ asset('adminassets/js/form.validate.js') }}"></script>

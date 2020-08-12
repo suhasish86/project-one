@@ -46,7 +46,55 @@ Route::name('admin.')->prefix('admin/')->namespace('Admin')->group(function () {
         Route::post('/updatepage/{page}', 'PageController@update')->name('updatepage');
         Route::post('/publishpage/{page}', 'PageController@publish')->name('publishpage');
         Route::post('/deletepage/{page}', 'PageController@destroy')->name('deletepage');
-        Route::post('/deletebanner/{page}', 'PageController@removebanner')->name('deletebanner');
+        Route::post('/deletepagebanner/{page}', 'PageController@removebanner')->name('deletebanner');
+
+        //Category manager
+        Route::get('/categorylist', 'CategoryController@index')->name('categorylist');
+        Route::get('/createcategory', 'CategoryController@create')->name('createcategory');
+        Route::get('/editcategory/{category}', 'CategoryController@edit')->name('editcategory');
+
+        Route::post('/ajax_categorylist', 'CategoryController@categoryList')->name('ajax_categorylist');
+        Route::post('/savecategory', 'CategoryController@store')->name('savecategory');
+        Route::post('/updatecategory/{category}', 'CategoryController@update')->name('updatecategory');
+        Route::post('/publishcategory/{category}', 'CategoryController@publish')->name('publishcategory');
+        Route::post('/deletecategory/{category}', 'CategoryController@destroy')->name('deletecategory');
+        Route::post('/deletecategorybanner/{category}', 'CategoryController@removebanner')->name('deletecategorybanner');
+
+        //Brands manager
+        Route::get('/{brandproduct}/brandlist', 'BrandController@index')->name('brandlist');
+        Route::get('/{brandproduct}/createbrand', 'BrandController@create')->name('createbrand');
+        Route::get('/{brandproduct}/editbrand/{brand}', 'BrandController@edit')->name('editbrand');
+
+        Route::post('/ajax_brandlist', 'BrandController@brandList')->name('ajax_brandlist');
+        Route::post('/savebrand', 'BrandController@store')->name('savebrand');
+        Route::post('/updatebrand/{brand}', 'BrandController@update')->name('updatebrand');
+        Route::post('/publishbrand/{brand}', 'BrandController@publish')->name('publishbrand');
+        Route::post('/deletebrand/{brand}', 'BrandController@destroy')->name('deletebrand');
+        Route::post('/deletebrandbanner/{brand}', 'BrandController@removebanner')->name('deletebrandbanner');
+
+        //Styles manager
+        Route::get('/{styleproduct}/stylelist', 'StyleController@index')->name('stylelist');
+        Route::get('/{styleproduct}/createstyle', 'StyleController@create')->name('createstyle');
+        Route::get('/{styleproduct}/editstyle/{style}', 'StyleController@edit')->name('editstyle');
+
+        Route::post('/ajax_stylelist', 'StyleController@styleList')->name('ajax_stylelist');
+        Route::post('/savestyle', 'StyleController@store')->name('savestyle');
+        Route::post('/updatestyle/{style}', 'StyleController@update')->name('updatestyle');
+        Route::post('/publishstyle/{style}', 'StyleController@publish')->name('publishstyle');
+        Route::post('/deletestyle/{style}', 'StyleController@destroy')->name('deletestyle');
+        Route::post('/deletestylebanner/{style}', 'StyleController@removebanner')->name('deletestylebanner');
+
+        //Products manager
+        Route::get('/{genre}/productlist', 'ProductController@index')->name('productlist');
+        Route::get('/{genre}/createproduct', 'ProductController@create')->name('createproduct');
+        Route::get('/{genre}/editproduct/{product}', 'ProductController@edit')->name('editproduct');
+
+        Route::post('/ajax_productlist', 'ProductController@productList')->name('ajax_productlist');
+        Route::post('/saveproduct', 'ProductController@store')->name('saveproduct');
+        Route::post('/updateproduct/{product}', 'ProductController@update')->name('updateproduct');
+        Route::post('/publishproduct/{product}', 'ProductController@publish')->name('publishproduct');
+        Route::post('/deleteproduct/{product}', 'ProductController@destroy')->name('deleteproduct');
+        Route::post('/deleteproductimage/{product}', 'ProductController@removeimage')->name('deleteproductimage');
 
     });
 

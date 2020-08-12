@@ -17,9 +17,7 @@
     <!-- Bootstrap CSS
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('adminassets/css/bootstrap.min.css') }}">
-    <!-- Bootstrap CSS
-    ============================================ -->
-    <link rel="stylesheet" href="{{ asset('adminassets/css/font-awesome.min.css') }}">
+
     <!-- meanmenu CSS
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('adminassets/css/meanmenu/meanmenu.min.css') }}">
@@ -35,6 +33,15 @@
     <!-- notika icon CSS
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('adminassets/css/notika-custom-icon.css') }}">
+
+    <!-- Chosen CSS
+    ============================================ -->
+    <link rel="stylesheet" href="{{ asset('adminassets/css/chosen/chosen.css') }}">
+
+    <!-- Page specific Css
+    ============================================ -->
+    @yield('specific_style')
+
     <!-- main CSS
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('adminassets/css/main.css') }}">
@@ -44,9 +51,13 @@
     <!-- responsive CSS
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('adminassets/css/responsive.css') }}">
-    <!-- Page specific Css
+
+    <!-- Fontawesome CSS
     ============================================ -->
-    @yield('specific_style')
+
+    <link rel="stylesheet" href="{{ asset('adminassets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminassets/css/fontawesome/brands.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminassets/css/fontawesome/regular.min.css') }}">
 
     <!-- modernizr JS
     ============================================ -->
@@ -115,10 +126,27 @@
                         <nav id="dropdown">
                             <ul class="mobile-menu-nav">
                                 <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                <li><a data-toggle="collapse" data-target="#pagemanager" href="#">Email</a>
-                                    <ul id="pagemanager" class="collapse dropdown-header-top">
-                                        <li><a href="{{ route('admin.pagelist') }}">All Pages</a></li>
-                                        <li><a href="{{ route('admin.createpage') }}">Create New</a></li>
+                                <li><a href="{{ route('admin.pagelist') }}">Page Manager</a></li>
+                                <li><a href="{{ route('admin.categorylist') }}">Category Manager</a></li>
+                                <li><a data-toggle="collapse" data-target="#framemanager" href="#">Frame Manager</a>
+                                    <ul id="framemanager" class="collapse dropdown-header-top">
+                                        <li><a href="{{ route('admin.brandlist', ['brandproduct'=>'frame']) }}">Brands</a></li>
+                                        <li><a href="{{ route('admin.stylelist', ['styleproduct'=>'frame']) }}">Styles</a></li>
+                                        <li><a href="{{ route('admin.productlist', ['genre'=>'frame']) }}">Frames</a></li>
+                                    </ul>
+                                </li>
+                                <li><a data-toggle="collapse" data-target="#sunglassanager" href="#">Sunglass Manager</a>
+                                    <ul id="sunglassanager" class="collapse dropdown-header-top">
+                                        <li><a href="{{ route('admin.brandlist', ['brandproduct'=>'sunglass']) }}">Brands</a></li>
+                                        <li><a href="{{ route('admin.stylelist', ['styleproduct'=>'sunglass']) }}">Styles</a></li>
+                                        <li><a href="{{ route('admin.productlist', ['genre'=>'sunglass']) }}">Sunglasses</a></li>
+                                    </ul>
+                                </li>
+                                <li><a data-toggle="collapse" data-target="#lensmanager" href="#">Lens Manager</a>
+                                    <ul id="lensmanager" class="collapse dropdown-header-top">
+                                        <li><a href="{{ route('admin.brandlist', ['brandproduct'=>'lens']) }}">Brands</a></li>
+                                        <li><a href="{{ route('admin.stylelist', ['styleproduct'=>'lens']) }}">Styles</a></li>
+                                        <li><a href="{{ route('admin.productlist', ['genre'=>'lens']) }}">Lenses</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -138,15 +166,42 @@
                         <li class="{{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
                             <a href="{{ route('admin.dashboard') }}"><i class="notika-icon notika-house"></i> Dashboard</a>
                         </li>
-                        <li class="{{ (request()->is('admin/pagelist') || request()->is('admin/createpage')) ? 'active' : '' }}">
-                            <a data-toggle="tab" href="#pages"><i class="notika-icon notika-mail"></i> Page Manager</a>
+                        <li class="{{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+                            <a href="{{ route('admin.pagelist') }}"><i class="notika-icon notika-house"></i> Page Manager</a>
+                        </li>
+                        <li class="{{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+                            <a href="{{ route('admin.categorylist') }}"><i class="notika-icon notika-house"></i> Category Manager</a>
+                        </li>
+                        <li class="{{ (request()->is('admin/frame/*')) ? 'active' : '' }}">
+                            <a data-toggle="tab" href="#frames"><i class="notika-icon notika-mail"></i> Frame Manager</a>
+                        </li>
+                        <li class="{{ (request()->is('admin/sunglass/*')) ? 'active' : '' }}">
+                            <a data-toggle="tab" href="#sunglasses"><i class="notika-icon notika-mail"></i> Sunglass Manager</a>
+                        </li>
+                        <li class="{{ (request()->is('admin/lense/*')) ? 'active' : '' }}">
+                            <a data-toggle="tab" href="#lenses"><i class="notika-icon notika-mail"></i> Lens Manager</a>
                         </li>
                     </ul>
                     <div class="tab-content custom-menu-content">
-                        <div id="pages" class="tab-pane {{ (request()->is('admin/pagelist') || request()->is('admin/createpage')) ? 'active' : '' }} notika-tab-menu-bg animated flipInX">
+                        <div id="frames" class="tab-pane {{ (request()->is('admin/frame/*')) ? 'active' : '' }} notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
-                                <li><a href="{{ route('admin.pagelist') }}">All Pages</a></li>
-                                <li><a href="{{ route('admin.createpage') }}">Create New</a></li>
+                                <li><a href="{{ route('admin.brandlist', ['brandproduct' => 'frame']) }}">Brands</a></li>
+                                <li><a href="{{ route('admin.stylelist', ['styleproduct' => 'frame']) }}">Styles</a></li>
+                                <li><a href="{{ route('admin.productlist', ['genre' => 'frame']) }}">Frames</a></li>
+                            </ul>
+                        </div>
+                        <div id="sunglasses" class="tab-pane {{ (request()->is('admin/sunglass/*')) ? 'active' : '' }} notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="{{ route('admin.brandlist', ['brandproduct' => 'sunglass']) }}">Brands</a></li>
+                                <li><a href="{{ route('admin.stylelist', ['styleproduct' => 'sunglass']) }}">Styles</a></li>
+                                <li><a href="{{ route('admin.productlist', ['genre' => 'sunglass']) }}">Sunglasses</a></li>
+                            </ul>
+                        </div>
+                        <div id="lenses" class="tab-pane {{ (request()->is('admin/lense/*')) ? 'active' : '' }} notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="{{ route('admin.brandlist', ['brandproduct' => 'lense']) }}">Brands</a></li>
+                                <li><a href="{{ route('admin.stylelist', ['styleproduct' => 'lense']) }}">Styles</a></li>
+                                <li><a href="{{ route('admin.productlist', ['genre' => 'lense']) }}">Lenses</a></li>
                             </ul>
                         </div>
                     </div>
@@ -156,6 +211,10 @@
     </div>
     <!-- Main Menu area End-->
 
+
+    <!-- Start Label Content area -->
+    @yield('content-label')
+    <!-- End Label Content area-->
 
     <!-- Start Main Content area -->
     @yield('content')
@@ -195,9 +254,11 @@
         <!-- icheck JS
         ============================================ -->
         <script src="{{ asset('adminassets/js/icheck/icheck.min.js') }}"></script>
-        <!-- Common JS
+
+        <!--  chosen JS
         ============================================ -->
-        <script src="{{ asset('adminassets/js/admin-common.js') }}"></script>
+        <script src="{{ asset('adminassets/js/chosen/chosen.jquery.js') }}"></script>
+
         <!-- AJAX Setup
         ============================================ -->
         <script type="text/javascript">
@@ -214,6 +275,10 @@
         <!-- Page specific Js
 		============================================ -->
         @yield('specific_scrypt')
+
+        <!-- Common JS
+        ============================================ -->
+        <script src="{{ asset('adminassets/js/admin-common.js') }}"></script>
 
         @yield('page_scrypt')
 

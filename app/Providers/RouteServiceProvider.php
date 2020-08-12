@@ -38,6 +38,23 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('page', function($value) {
             return \App\Admin\Page::where('id', $value)->orWhere('pageslug', $value)->first();
         });
+
+        Route::bind('category', function($value) {
+            return \App\Admin\Category::where('id', $value)->orWhere('categoryslug', $value)->first();
+        });
+
+        Route::bind('brand', function($value) {
+            return \App\Admin\Brand::where('id', $value)->orWhere('brandslug', $value)->first();
+        });
+
+        Route::bind('style', function($value) {
+            return \App\Admin\Style::where('id', $value)->orWhere('styleslug', $value)->first();
+        });
+
+        Route::bind('product', function($value) {
+            return \App\Admin\Product::where('id', $value)->orWhere('productslug', $value)->first();
+        });
+
     }
 
     /**

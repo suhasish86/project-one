@@ -1,7 +1,7 @@
 @extends('layouts.admin.list')
 
 @section('pagetitle')
-Admin | Page Management: Pagelist
+Admin | Category Management: Categorylist
 @endsection
 
 @section('content-label')
@@ -18,14 +18,14 @@ Admin | Page Management: Pagelist
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h2>Page List</h2>
-                                    <p>Manage your {{ Illuminate\Support\Str::plural('page')}} here, you can publish, edit or delete {{ Illuminate\Support\Str::plural('page')}} from the below list.</p>
+                                    <h2>Product Category List</h2>
+                                    <p>Manage your {{ Illuminate\Support\Str::plural('category')}} here, you can publish, edit or delete {{ Illuminate\Support\Str::plural('category')}} from the below list.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
                             <div class="breadcomb-report">
-                                <button data-toggle="tooltip" data-placement="left" title="Add New Page" class="btn" id="listadd"><i class="notika-icon notika-plus-symbol"></i></button>
+                                <button data-toggle="tooltip" data-placement="left" title="Add Product Category" class="btn" id="listadd"><i class="notika-icon notika-plus-symbol"></i></button>
                             </div>
                         </div>
                     </div>
@@ -45,15 +45,14 @@ Admin | Page Management: Pagelist
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="data-table-list">
                     <div class="basic-tb-hd">
-                        <h2>Page List</h2>
+                        <h2>Category List</h2>
                     </div>
                     <div class="table-responsive">
-                        <table id="table-pagelist" class="table table-striped">
+                        <table id="table-categorylist" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Sl.No</th>
                                     <th>Name</th>
-                                    <th>Description</th>
                                     <th>Publish</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -66,7 +65,6 @@ Admin | Page Management: Pagelist
                                 <tr>
                                     <th>Sl.No</th>
                                     <th>Name</th>
-                                    <th>Description</th>
                                     <th>Publish</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -82,7 +80,7 @@ Admin | Page Management: Pagelist
 @endsection
 
 @section('page_scrypt')
-<script src="{{ asset('adminassets/js/module-scripts/page.js') }}"></script>
+<script src="{{ asset('adminassets/js/module-scripts/category.js') }}"></script>
 @endsection
 
 

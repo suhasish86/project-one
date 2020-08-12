@@ -1,14 +1,14 @@
 (function($) {
     "use strict";
 
-    if ($('table#table-pagelist').length) {
-        //Page list
-        var pagelistdatatable;
-        if (pagelistdatatable) {
-            pagelistdatatable.fnClearTable(0);
-            pagelistdatatable.fnDestroy();
+    if ($('table#table-categorylist').length) {
+        //Category list
+        var categorylistdatatable;
+        if (categorylistdatatable) {
+            categorylistdatatable.fnClearTable(0);
+            categorylistdatatable.fnDestroy();
         }
-        pagelistdatatable = $('table#table-pagelist').dataTable({
+        categorylistdatatable = $('table#table-categorylist').dataTable({
             "bProcessing": false,
             "bLengthChange": true,
             "bStateSave": true,
@@ -25,7 +25,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: host + "admin/ajax_pagelist", // json datasource
+                url: host + "admin/ajax_categorylist", // json datasource
                 type: "post", // method  , by default get
                 "data": function(params) {
                     //extra params
@@ -39,10 +39,10 @@
         $(window).resize();
 
         //Publish
-        $('table#table-pagelist').on('click', 'a[id^="publish-"]', function() {
-            var pageslug = $(this).attr('id').replace('publish-', '');
+        $('table#table-categorylist').on('click', 'a[id^="publish-"]', function() {
+            var categoryslug = $(this).attr('id').replace('publish-', '');
             $.ajax({
-                url: host + 'admin/publishpage/' + pageslug,
+                url: host + 'admin/publishcategory/' + categoryslug,
                 type: "POST",
                 dataType: 'html',
                 data: {},
@@ -52,17 +52,17 @@
                     // console.log(responce);
                     responce = JSON.parse(responce);
                     popmessage(responce.status, responce.message);
-                    $('table#table-pagelist').DataTable().ajax.reload();
+                    $('table#table-categorylist').DataTable().ajax.reload();
                     return false;
                 }
             });
         });
 
         //Remove
-        $('table#table-pagelist').on('click', 'a[id^="delete-"]', function() {
-            var pageslug = $(this).attr('id').replace('delete-', '');
+        $('table#table-categorylist').on('click', 'a[id^="delete-"]', function() {
+            var categoryslug = $(this).attr('id').replace('delete-', '');
             $.ajax({
-                url: host + 'admin/deletepage/' + pageslug,
+                url: host + 'admin/deletecategory/' + categoryslug,
                 type: "POST",
                 dataType: 'html',
                 data: {},
@@ -72,19 +72,19 @@
                     // console.log(responce);
                     responce = JSON.parse(responce);
                     popmessage(responce.status, responce.message);
-                    $('table#table-pagelist').DataTable().ajax.reload();
+                    $('table#table-categorylist').DataTable().ajax.reload();
                     return false;
                 }
             });
         });
 
         $('button#listadd').click(function() {
-            var target = host + 'admin/createpage';
+            var target = host + 'admin/createcategory';
             window.location.href = target;
         });
     }
 
-    if ($('form#createpagefrm').length) {
+    if ($('form#createcategoryfrm').length) {
 
         //Dropzone
         Dropzone.autoDiscover = false;
@@ -120,7 +120,7 @@
                     __removeUpload(file.name);
                 });
                 this.on("sending", function(file, xhr, formData) {
-                    formData.append("filepath", 'pagebanner');
+                    formData.append("filepath", 'categorybanner');
                     formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                 });
             },
@@ -134,14 +134,14 @@
         });
 
         var __removeUpload = function(file) {
-            var slug = $('input#pageslug').val();
-            var target = (slug != '') ? host + 'admin/deletepagebanner/' + slug : host + 'admin/removeupload';
+            var slug = $('input#categoryslug').val();
+            var target = (slug != '') ? host + 'admin/deletecategorybanner/' + slug : host + 'admin/removeupload';
             $.ajax({
                 url: target,
                 type: "POST",
                 dataType: 'html',
                 data: {
-                    'path': 'pagebanner',
+                    'path': 'categorybanner',
                     'file': file
                 },
                 timeout: 20000,
@@ -153,32 +153,28 @@
             });
         };
 
-        $("#pagedescription").summernote({
-            height: 150
-        })
-
         var res = false;
 
         //Focus script
-        $('input#pagename').activeFocus(error_class);
+        $('input#categoryname').activeFocus(error_class);
         $('input#browsertitle').activeFocus(error_class);
         $('input#metakeyword').activeFocus(error_class);
         $('input#metadescription').activeFocus(error_class);
 
-        $('form#createpagefrm').submit(function(e) {
+        $('form#createcategoryfrm').submit(function(e) {
             e.preventDefault();
-            res = $('input#pagename').notempty(error_class);
+            res = $('input#categoryname').notempty(error_class);
             res = res && $('input#browsertitle').notempty(error_class);
             res = res && $('input#metakeyword').notempty(error_class);
             res = res && $('input#metadescription').notempty(error_class);
 
             //Target & Redirect Url
-            var slug = $('input#pageslug').val();
-            var target = (slug == '') ? host + 'admin/savepage' : host + 'admin/updatepage/' + slug
-            var redirect = host + 'admin/pagelist';
+            var slug = $('input#categoryslug').val();
+            var target = (slug == '') ? host + 'admin/savecategory' : host + 'admin/updatecategory/' + slug
+            var redirect = host + 'admin/categorylist';
 
             if (res) {
-                var arg = $("form#createpagefrm").serialize();
+                var arg = $("form#createcategoryfrm").serialize();
                 console.log(arg);
                 $.ajax({
                     url: target,
