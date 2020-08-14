@@ -52,6 +52,7 @@ Admin | Product Management: {{ ucfirst($product->genre) }}list
                                     <th>Name</th>
                                     <th>Brand</th>
                                     <th>Style</th>
+                                    <th>Material</th>
                                     <th>Price</th>
                                     <th>Publish</th>
                                     <th>Edit</th>
@@ -67,6 +68,7 @@ Admin | Product Management: {{ ucfirst($product->genre) }}list
                                     <th>Name</th>
                                     <th>Brand</th>
                                     <th>Style</th>
+                                    <th>Material</th>
                                     <th>Price</th>
                                     <th>Publish</th>
                                     <th>Edit</th>

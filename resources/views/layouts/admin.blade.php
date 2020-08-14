@@ -132,6 +132,7 @@
                                     <ul id="framemanager" class="collapse dropdown-header-top">
                                         <li><a href="{{ route('admin.brandlist', ['brandproduct'=>'frame']) }}">Brands</a></li>
                                         <li><a href="{{ route('admin.stylelist', ['styleproduct'=>'frame']) }}">Styles</a></li>
+                                        <li><a href="{{ route('admin.materiallist', ['materialproduct'=>'material']) }}">Materials</a></li>
                                         <li><a href="{{ route('admin.productlist', ['genre'=>'frame']) }}">Frames</a></li>
                                     </ul>
                                 </li>
@@ -139,6 +140,7 @@
                                     <ul id="sunglassanager" class="collapse dropdown-header-top">
                                         <li><a href="{{ route('admin.brandlist', ['brandproduct'=>'sunglass']) }}">Brands</a></li>
                                         <li><a href="{{ route('admin.stylelist', ['styleproduct'=>'sunglass']) }}">Styles</a></li>
+                                        <li><a href="{{ route('admin.materiallist', ['materialproduct'=>'sunglass']) }}">Materials</a></li>
                                         <li><a href="{{ route('admin.productlist', ['genre'=>'sunglass']) }}">Sunglasses</a></li>
                                     </ul>
                                 </li>
@@ -146,6 +148,7 @@
                                     <ul id="lensmanager" class="collapse dropdown-header-top">
                                         <li><a href="{{ route('admin.brandlist', ['brandproduct'=>'lens']) }}">Brands</a></li>
                                         <li><a href="{{ route('admin.stylelist', ['styleproduct'=>'lens']) }}">Styles</a></li>
+                                        <li><a href="{{ route('admin.materiallist', ['materialproduct'=>'lens']) }}">Materials</a></li>
                                         <li><a href="{{ route('admin.productlist', ['genre'=>'lens']) }}">Lenses</a></li>
                                     </ul>
                                 </li>
@@ -187,6 +190,7 @@
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="{{ route('admin.brandlist', ['brandproduct' => 'frame']) }}">Brands</a></li>
                                 <li><a href="{{ route('admin.stylelist', ['styleproduct' => 'frame']) }}">Styles</a></li>
+                                <li><a href="{{ route('admin.materiallist', ['materialproduct' => 'frame']) }}">Materials</a></li>
                                 <li><a href="{{ route('admin.productlist', ['genre' => 'frame']) }}">Frames</a></li>
                             </ul>
                         </div>
@@ -194,6 +198,7 @@
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="{{ route('admin.brandlist', ['brandproduct' => 'sunglass']) }}">Brands</a></li>
                                 <li><a href="{{ route('admin.stylelist', ['styleproduct' => 'sunglass']) }}">Styles</a></li>
+                                <li><a href="{{ route('admin.materiallist', ['materialproduct' => 'sunglass']) }}">Materials</a></li>
                                 <li><a href="{{ route('admin.productlist', ['genre' => 'sunglass']) }}">Sunglasses</a></li>
                             </ul>
                         </div>
@@ -201,6 +206,7 @@
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="{{ route('admin.brandlist', ['brandproduct' => 'lense']) }}">Brands</a></li>
                                 <li><a href="{{ route('admin.stylelist', ['styleproduct' => 'lense']) }}">Styles</a></li>
+                                <li><a href="{{ route('admin.materiallist', ['materialproduct' => 'lense']) }}">Materials</a></li>
                                 <li><a href="{{ route('admin.productlist', ['genre' => 'lense']) }}">Lenses</a></li>
                             </ul>
                         </div>

@@ -72,6 +72,18 @@ Route::name('admin.')->prefix('admin/')->namespace('Admin')->group(function () {
         Route::post('/deletebrand/{brand}', 'BrandController@destroy')->name('deletebrand');
         Route::post('/deletebrandbanner/{brand}', 'BrandController@removebanner')->name('deletebrandbanner');
 
+        //Materials manager
+        Route::get('/{materialproduct}/materiallist', 'MaterialController@index')->name('materiallist');
+        Route::get('/{materialproduct}/creatematerial', 'MaterialController@create')->name('creatematerial');
+        Route::get('/{materialproduct}/editmaterial/{material}', 'MaterialController@edit')->name('editmaterial');
+
+        Route::post('/ajax_materiallist', 'MaterialController@materialList')->name('ajax_materiallist');
+        Route::post('/savematerial', 'MaterialController@store')->name('savematerial');
+        Route::post('/updatematerial/{material}', 'MaterialController@update')->name('updatematerial');
+        Route::post('/publishmaterial/{material}', 'MaterialController@publish')->name('publishmaterial');
+        Route::post('/deletematerial/{material}', 'MaterialController@destroy')->name('deletematerial');
+        Route::post('/deletematerialbanner/{material}', 'MaterialController@removebanner')->name('deletematerialbanner');
+
         //Styles manager
         Route::get('/{styleproduct}/stylelist', 'StyleController@index')->name('stylelist');
         Route::get('/{styleproduct}/createstyle', 'StyleController@create')->name('createstyle');

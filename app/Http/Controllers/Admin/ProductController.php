@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin\Category;
 use App\Admin\Brand;
 use App\Admin\Style;
+use App\Admin\Material;
 use App\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Traits\ImageHandler;
@@ -38,8 +39,9 @@ class ProductController extends Controller
         $categories = Category::where('status', 1)->get();
         $brands = Brand::where(['status'=>1, 'product'=>$genre])->get();
         $styles = Style::where(['status'=>1, 'product'=>$genre])->get();
+        $materials = Material::where(['status'=>1, 'product'=>$genre])->get();
 
-        return view('admin.createproduct', compact('product', 'categories', 'brands', 'styles'));
+        return view('admin.createproduct', compact('product', 'categories', 'brands', 'styles', 'materials'));
     }
 
     /**
@@ -67,6 +69,7 @@ class ProductController extends Controller
             'genre' => 'required',
             'productstyle' => 'required',
             'productbrand' => 'required',
+            'productmaterial' => 'required',
             'productcategory' => 'required',
             'description' => 'required',
             'productprice' => 'required',
@@ -80,6 +83,7 @@ class ProductController extends Controller
         $product->genre = $request->genre;
         $product->style = $request->productstyle;
         $product->brand = $request->productbrand;
+        $product->material = $request->productmaterial;
         $product->category = $request->productcategory;
         $product->description = $request->description;
         $product->specification = json_encode($specs);
@@ -138,8 +142,9 @@ class ProductController extends Controller
         $categories = Category::where('status', 1)->get();
         $brands = Brand::where(['status'=>1, 'product'=>$product->genre])->get();
         $styles = Style::where(['status'=>1, 'product'=>$product->genre])->get();
+        $materials = Material::where(['status'=>1, 'product'=>$genre])->get();
 
-        return view('admin.createproduct', compact('product', 'categories', 'brands', 'styles'));
+        return view('admin.createproduct', compact('product', 'categories', 'brands', 'styles', 'materials'));
     }
 
     /**
@@ -167,6 +172,7 @@ class ProductController extends Controller
             'genre' => 'required',
             'productstyle' => 'required',
             'productbrand' => 'required',
+            'productmaterial' => 'required',
             'productcategory' => 'required',
             'description' => 'required',
             'productprice' => 'required',
@@ -180,6 +186,7 @@ class ProductController extends Controller
         $product->genre = $request->genre;
         $product->style = $request->productstyle;
         $product->brand = $request->productbrand;
+        $product->material = $request->productmaterial;
         $product->category = $request->productcategory;
         $product->description = $request->description;
         $product->specification = json_encode($specs);
@@ -337,12 +344,14 @@ class ProductController extends Controller
 
                 $product->brand = \App\Admin\Brand::find($product->brand)->brandname;
                 $product->style = \App\Admin\Style::find($product->style)->stylename;
+                $product->material = \App\Admin\Material::find($product->material)->materialname;
 
                 $nestedData = [];
                 $nestedData[] = $product->id;
                 $nestedData[] = $product->productname;
                 $nestedData[] = $product->brand;
                 $nestedData[] = $product->style;
+                $nestedData[] = $product->material;
                 $nestedData[] = $product->price;
                 $nestedData[] = '<a href="javascript:void(0);" title="'.$checkText.'" id="publish-'.$product->productslug.'">'.$checkIcon.'</a>';
                 $nestedData[] = '<a href="'.route('admin.editproduct', ['genre' => 'frame','product' => $product->productslug]).'" title="Edit Product"><i class="fa fa-edit"></i></a>';

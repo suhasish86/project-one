@@ -26,7 +26,7 @@ Admin | Brands Management: {{ @ucfirst($brand->product) }} Brands List
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
                             <div class="breadcomb-report">
-                                <button data-toggle="tooltip" data-placement="left" title="Add {{ @ucfirst($brand->product) }} Style" class="btn" id="listadd"><i class="notika-icon notika-plus-symbol"></i></button>
+                                <button data-toggle="tooltip" data-placement="left" title="Add {{ @ucfirst($brand->product) }} Brand" class="btn" id="listadd"><i class="notika-icon notika-plus-symbol"></i></button>
                             </div>
                         </div>
                     </div>

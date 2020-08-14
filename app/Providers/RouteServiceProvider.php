@@ -47,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
             return \App\Admin\Brand::where('id', $value)->orWhere('brandslug', $value)->first();
         });
 
+        Route::bind('material', function($value) {
+            return \App\Admin\Material::where('id', $value)->orWhere('materialslug', $value)->first();
+        });
+
         Route::bind('style', function($value) {
             return \App\Admin\Style::where('id', $value)->orWhere('styleslug', $value)->first();
         });

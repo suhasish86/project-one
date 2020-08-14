@@ -231,6 +231,27 @@ Admin | Product Management: {{ isset($product->productslug) ? 'Edit '.ucfirst($p
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    <label class="hrzn-fm">{{ ucfirst($product->genre) }} Material</label>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="nk-int-st">
+                                        <div class="chosen-select-act fm-cmp-mg">
+                                            <select class="chosen" name="productmaterial" id="productmaterial" data-placeholder="Material of your product">
+                                                <option value=""></option>
+                                                @foreach($materials as $material)
+                                                    <option value="{{ $material->id }}" {{ ($material->id == $product->material) ? 'selected' : '' }}>{{ $material->materialname }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-example-int form-horizental">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                                     <label class="hrzn-fm">{{ ucfirst($product->genre) }} Price</label>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">

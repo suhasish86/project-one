@@ -78,7 +78,7 @@ Admin | Category Management: {{ isset($category->categoryslug) ? 'Edit' : 'Add' 
                                         <label class="hrzn-fm">Category Banner</label>
                                     </div>
                                     <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                                        <div class="dropzone dropzone-nk needsclick dz-clickable" id="bannerUploader" data-file="{{ isset($category->banner) ? $category->banner : '' }}" data-link="{{ isset($category->banner_link) ? asset($category->banner_link) : '' }}" data-size="{{ isset($category->banner_size) ? $category->banner_size : '' }}">
+                                        <div class="dropzone dropzone-nk needsclick dz-clickable bannerThumbUpload" id="bannerUploader" data-file="{{ isset($category->banner) ? $category->banner : '' }}" data-link="{{ isset($category->banner_link) ? asset($category->banner_link) : '' }}" data-size="{{ isset($category->banner_size) ? $category->banner_size : '' }}">
                                             <div class="dz-message needsclick download-custom">
                                                 <i class="notika-icon notika-cloud"></i>
                                                 <h2>Drop files here or click to upload.</h2>
