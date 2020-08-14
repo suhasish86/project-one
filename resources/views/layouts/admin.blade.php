@@ -59,6 +59,10 @@
     <link rel="stylesheet" href="{{ asset('adminassets/css/fontawesome/brands.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminassets/css/fontawesome/regular.min.css') }}">
 
+    <!-- Custom CSS
+    ============================================ -->
+    <link rel="stylesheet" href="{{ asset('adminassets/css/fontawesome/custom.admin.css') }}">
+
     <!-- modernizr JS
     ============================================ -->
     <script src="{{ asset('adminassets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
